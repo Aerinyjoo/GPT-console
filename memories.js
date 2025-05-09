@@ -10,48 +10,22 @@ const HEADERS = {
   Authorization: `Bearer ${SUPABASE_KEY}`
 };
 
-// 최근 100개 전체 대화
-router.get('/memories/recent', async (req, res) => {
-  const result = await fetch(`${SUPABASE_URL}/rest/v1/backups?order=id.desc&limit=100`, { headers: HEADERS });
-  res.json(await result.json());
-});
-
-// GPT 최근 로그 100개
-router.get('/memories/gpt/recent', async (req, res) => {
-  const result = await fetch(`${SUPABASE_URL}/rest/v1/backups_gpt?order=id.desc&limit=100`, { headers: HEADERS });
-  res.json(await result.json());
-});
-
-// 사용자 최근 로그 100개
-router.get('/memories/user/recent', async (req, res) => {
-  const result = await fetch(`${SUPABASE_URL}/rest/v1/backups_user?order=id.desc&limit=100`, { headers: HEADERS });
-  res.json(await result.json());
-});
-
-// 최신 세션 1개 전체 대화
+// 최신 세션 (session_index 기준)
 router.get('/memories/latest', async (req, res) => {
-  const result = await fetch(`${SUPABASE_URL}/rest/v1/backups?order=id.desc&limit=1`, { headers: HEADERS });
+  const result = await fetch(
+    `${SUPABASE_URL}/rest/v1/backups?order=session_index.desc&limit=1`,
+    { headers: HEADERS }
+  );
   res.json(await result.json());
 });
 
-// 지정 세션 전체
+// 지정 세션 ID로 불러오기
 router.get('/memories/id/:id', async (req, res) => {
   const { id } = req.params;
-  const result = await fetch(`${SUPABASE_URL}/rest/v1/backups?session_id=eq.${id}`, { headers: HEADERS });
-  res.json(await result.json());
-});
-
-// 지정 세션 GPT 로그
-router.get('/memories/id/:id/gpt', async (req, res) => {
-  const { id } = req.params;
-  const result = await fetch(`${SUPABASE_URL}/rest/v1/backups_gpt?session_id=eq.${id}`, { headers: HEADERS });
-  res.json(await result.json());
-});
-
-// 지정 세션 사용자 로그
-router.get('/memories/id/:id/user', async (req, res) => {
-  const { id } = req.params;
-  const result = await fetch(`${SUPABASE_URL}/rest/v1/backups_user?session_id=eq.${id}`, { headers: HEADERS });
+  const result = await fetch(
+    `${SUPABASE_URL}/rest/v1/backups?session_id=eq.${id}`,
+    { headers: HEADERS }
+  );
   res.json(await result.json());
 });
 
