@@ -1,4 +1,4 @@
-const BASE_URL = "https://gpt-console-server.onrender.com";
+const BASE_URL = "https://gpt-console-server.onrender.com"; // 너의 서버 주소로 바꿔줘
 
 function showResult(text) {
   document.getElementById("result").innerText = text;
@@ -46,8 +46,8 @@ function uploadFiles() {
   const promises = files.map((file, index) => {
     return new Promise((resolve, reject) => {
       const session_index = indexInputs[index].value || `${index + 1}`;
-
       const reader = new FileReader();
+
       reader.onload = async () => {
         try {
           const sessionText = reader.result;
