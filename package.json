@@ -1,5 +1,5 @@
 {
-  "name": "chungmani-server",
+  "name": "gpt-console",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
