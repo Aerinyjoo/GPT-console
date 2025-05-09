@@ -9,11 +9,12 @@
   <h2>충만이 대화 백업기</h2>
 
   <input type="file" id="fileInput" accept=".txt" multiple />
-  <p>※ 최대 10개의 .txt 파일 선택 시, 자동으로 순서대로 저장됩니다.</p>
+  <p>※ 각 파일의 순서를 원하는 번호로 지정하세요 (기본값은 자동)</p>
 
-  <button onclick="uploadFiles()">대화 파일 업로드</button>
+  <div id="fileList"></div>
+  <button onclick="uploadFiles()">📤 대화 파일 업로드</button>
+
   <div id="result"></div>
-
   <script src="script.js"></script>
 </body>
 </html>
