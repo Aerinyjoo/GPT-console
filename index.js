@@ -15,7 +15,10 @@ app.use(bodyParser.json({ limit: '5mb' }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 // 백업용 Supabase 저장 함수
-async function saveToSupabase(table, session, result) {
+async function saveToSupabase(table, session, result, order = null) {
+  const data = { session, result };
+  if (order !== null) data.session_order = order;
+  
   const res = await fetch(`${SUPABASE_URL}/rest/v1/${table}`, {
     method: "POST",
     headers: {
@@ -34,10 +37,10 @@ async function saveToSupabase(table, session, result) {
 
 // 전체 백업 전용 엔드포인트
 app.post('/session', async (req, res) => {
-  const { session } = req.body;
+  const { session, order } = req.body;
 
   try {
-    await saveToSupabase("backups", session, "전체 대화 백업 완료");
+    await saveToSupabase("backups", session, "전체 대화 백업 완료", order);
 
     const lines = session.split('\n');
     for (let line of lines) {
