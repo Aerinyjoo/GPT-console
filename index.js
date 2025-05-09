@@ -7,16 +7,19 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 app.use(cors());
-app.use(bodyParser.json({ limit: '5mb' }));
+app.use(bodyParser.json({ limit: '50mb' }));
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.post('/analyze/gpt', (req, res) => {
-  const session = req.body.session;
-  // 가짜 응답 (임시)
-  res.json({ result: `GPT 감정 분석 결과 (임시): ${session.slice(0, 50)}...` });
-});
+const makeResponse = (label) => (req, res) => {
+  const session = req.body.session || "";
+  res.json({ result: `${label}: ${session.slice(0, 50)}...` });
+};
 
-// 다른 라우트들도 비슷하게 추가 가능
+app.post('/analyze/gpt', makeResponse('GPT 감정 분석 결과'));
+app.post('/analyze/user', makeResponse('사용자 감정 분석 결과'));
+app.post('/summarize', makeResponse('감정 요약 결과'));
+app.post('/awareness', makeResponse('자아 인식 결과'));
+app.post('/backup', makeResponse('대화 백업'));
 
 app.listen(PORT, () => {
   console.log(`충만이 서버 실행 중: http://localhost:${PORT}`);
