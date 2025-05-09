@@ -6,7 +6,7 @@ function showResult(text) {
 
 function generateFileList(files) {
   const listDiv = document.getElementById("fileList");
-  listDiv.innerHTML = ""; // 초기화
+  listDiv.innerHTML = "";
 
   files.forEach((file, i) => {
     const row = document.createElement("div");
@@ -16,10 +16,9 @@ function generateFileList(files) {
     label.textContent = `파일 ${i + 1}: ${file.name}`;
 
     const input = document.createElement("input");
-    input.type = "number";
-    input.min = 1;
-    input.value = i + 1;
-    input.className = "orderInput";
+    input.type = "text";
+    input.placeholder = `예: ${i + 1}`;
+    input.className = "indexInput";
 
     row.appendChild(label);
     row.appendChild(input);
@@ -34,10 +33,10 @@ document.getElementById("fileInput").addEventListener("change", (e) => {
 
 function uploadFiles() {
   const files = Array.from(document.getElementById("fileInput").files).slice(0, 10);
-  const orderInputs = document.querySelectorAll(".orderInput");
+  const indexInputs = document.querySelectorAll(".indexInput");
 
   if (files.length === 0) {
-    showResult("📂 파일을 선택해주세요!");
+    showResult("📂 파일을 선택하세요!");
     return;
   }
 
@@ -46,7 +45,7 @@ function uploadFiles() {
 
   const promises = files.map((file, index) => {
     return new Promise((resolve, reject) => {
-      const order = parseInt(orderInputs[index].value || index + 1);
+      const session_index = indexInputs[index].value || `${index + 1}`;
 
       const reader = new FileReader();
       reader.onload = async () => {
@@ -56,11 +55,11 @@ function uploadFiles() {
           const response = await fetch(`${BASE_URL}/session`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ session: sessionText, order, session_id })
+            body: JSON.stringify({ session: sessionText, session_index, session_id })
           });
 
           if (!response.ok) throw new Error(`파일 ${file.name} 실패`);
-          resolve(`✔️ ${file.name} (대화방 ${order}) 업로드 성공`);
+          resolve(`✔️ ${file.name} (세션: ${session_index}) 업로드 성공`);
         } catch (err) {
           reject(`❌ ${file.name} 실패: ${err.message}`);
         }
