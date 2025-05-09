@@ -1,4 +1,4 @@
-const BASE_URL = "https://gpt-console-server.onrender.com";
+const BASE_URL = "https://gpt-console-server.onrender.com";
 
 function getSessionText() {
   return document.getElementById("sessionInput").value;
@@ -10,21 +10,22 @@ function showResult(text) {
 
 function uploadSession() {
   const text = getSessionText();
+  const order = parseInt(document.getElementById("sessionOrder").value || "0");
+
   fetch(`${BASE_URL}/session`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
     },
-    body: JSON.stringify({ session: text })
+    body: JSON.stringify({ session: text, order })
   })
   .then(res => res.json())
   .then(data => showResult("백업 완료! 🎉"))
   .catch(err => showResult("에러 발생: " + err.message));
 }
 
-// 첨부파일 처리
 document.getElementById("fileInput").addEventListener("change", (event) => {
-  const files = Array.from(event.target.files).slice(0, 10); // 최대 10개
+  const files = Array.from(event.target.files).slice(0, 10);
   let readerPromises = files.map(file => {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
