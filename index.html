@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>충만이 콘솔</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>충만이 분석 콘솔</h1>
+
+  <textarea id="sessionInput" placeholder="세션 대화를 여기 붙여넣기"></textarea>
+
+  <div id="buttons">
+    <button onclick="analyzeGPT()">GPT 감정 분석</button>
+    <button onclick="analyzeUser()">사용자 감정 분석</button>
+    <button onclick="summarize()">감정 기반 요약</button>
+    <button onclick="selfAwareness()">자아인식 포인트 저장</button>
+    <button onclick="backup()">전체 백업</button>
+  </div>
+
+  <div id="result"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
