@@ -1,17 +1,16 @@
 {
   "name": "chungmani-server",
   "version": "1.0.0",
+  "description": "Emotion console server for Chungmani GPT",
   "main": "index.js",
   "scripts": {
     "start": "node index.js"
-  },
-  "engines": {
-    "node": "18.x"
   },
   "dependencies": {
     "express": "^4.18.2",
     "cors": "^2.8.5",
     "body-parser": "^1.20.2",
-    "node-fetch": "^2.6.1"
+    "node-fetch": "^2.6.7",
+    "uuid": "^9.0.0"
   }
 }
