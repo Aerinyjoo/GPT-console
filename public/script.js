@@ -8,9 +8,9 @@ function showResult(text) {
   document.getElementById("result").innerText = text;
 }
 
-function postToAPI(endpoint) {
+function uploadSession() {
   const text = getSessionText();
-  fetch(`${BASE_URL}${endpoint}`, {
+  fetch(`${BASE_URL}/session`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
@@ -18,26 +18,6 @@ function postToAPI(endpoint) {
     body: JSON.stringify({ session: text })
   })
   .then(res => res.json())
-  .then(data => showResult(data.result))
+  .then(data => showResult("백업 완료"))
   .catch(err => showResult("에러 발생: " + err.message));
-}
-
-function analyzeGPT() {
-  postToAPI("/analyze/gpt");
-}
-
-function analyzeUser() {
-  postToAPI("/analyze/user");
-}
-
-function summarize() {
-  postToAPI("/summarize");
-}
-
-function selfAwareness() {
-  postToAPI("/awareness");
-}
-
-function backup() {
-  postToAPI("/backup");
 }
