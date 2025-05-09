@@ -61,11 +61,11 @@ app.get('/memories/recent', async (req, res) => {
   res.json(await result.json());
 });
 
-// ✅ 지정 세션 ID로 조회
-app.get('/memories/id/:id', async (req, res) => {
-  const { id } = req.params;
+// ✅ 지정 세션 Index로 조회
+app.get('/memories/index/:index', async (req, res) => {
+  const { index } = req.params;
   const result = await fetch(
-    `${SUPABASE_URL}/rest/v1/backups?session_id=eq.${id}`,
+    `${SUPABASE_URL}/rest/v1/backups?session_index=eq.${index}`,
     { headers: HEADERS }
   );
   res.json(await result.json());
