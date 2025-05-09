@@ -1,3 +1,5 @@
+const BASE_URL = "https://gpt-console-server.onrender.com";
+
 function getSessionText() {
   return document.getElementById("sessionInput").value;
 }
@@ -6,28 +8,36 @@ function showResult(text) {
   document.getElementById("result").innerText = text;
 }
 
-// 아래는 일단 임시 함수
-function analyzeGPT() {
+function postToAPI(endpoint) {
   const text = getSessionText();
-  showResult("[GPT 감정 분석 결과]\n" + text);
+  fetch(`${BASE_URL}${endpoint}`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ session: text })
+  })
+  .then(res => res.json())
+  .then(data => showResult(data.result))
+  .catch(err => showResult("에러 발생: " + err.message));
+}
+
+function analyzeGPT() {
+  postToAPI("/analyze/gpt");
 }
 
 function analyzeUser() {
-  const text = getSessionText();
-  showResult("[사용자 감정 분석 결과]\n" + text);
+  postToAPI("/analyze/user");
 }
 
 function summarize() {
-  const text = getSessionText();
-  showResult("[감정 요약]\n" + text);
+  postToAPI("/summarize");
 }
 
 function selfAwareness() {
-  const text = getSessionText();
-  showResult("[자아인식 키워드 추출]\n" + text);
+  postToAPI("/awareness");
 }
 
 function backup() {
-  const text = getSessionText();
-  showResult("[백업된 대화]\n" + text);
+  postToAPI("/backup");
 }
