@@ -61,6 +61,9 @@ app.post('/session', async (req, res) => {
   }
 });
 
+const memoryRoutes = require('./memories');
+app.use('/', memoryRoutes);
+
 app.listen(PORT, () => {
   console.log(`⚙️ 충만이 서버 실행 중: http://localhost:${PORT}`);
 });
