@@ -53,7 +53,7 @@ app.post('/session', async (req, res) => {
 });
 
 // ✅ 최신 세션 (session_index 기준 정렬)
-app.get('/memories/latest', async (req, res) => {
+app.get('/memories/recent', async (req, res) => {
   const result = await fetch(
     `${SUPABASE_URL}/rest/v1/backups?order=session_index.desc&limit=1`,
     { headers: HEADERS }
