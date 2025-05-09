@@ -2,20 +2,16 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
-  <title>충만이 대화 백업 콘솔</title>
+  <title>충만이 백업 콘솔</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h2>충만이 대화 백업 콘솔</h2>
-
-  <input type="number" id="sessionOrder" placeholder="대화 순서 (예: 3)" /><br><br>
+  <h2>충만이 대화 백업기</h2>
 
   <input type="file" id="fileInput" accept=".txt" multiple />
-  <p>※ .txt 파일 최대 10개까지 선택 가능</p>
+  <p>※ 최대 10개의 .txt 파일 선택 시, 자동으로 순서대로 저장됩니다.</p>
 
-  <textarea id="sessionInput" placeholder="여기에 대화 붙여넣기 또는 파일 선택"></textarea><br>
-
-  <button onclick="uploadSession()">대화 업로드</button>
+  <button onclick="uploadFiles()">대화 파일 업로드</button>
   <div id="result"></div>
 
   <script src="script.js"></script>
