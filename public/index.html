@@ -1,15 +1,21 @@
-<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
-  <title>충만이 대화 백업기</title>
+  <title>충만이 대화 백업 콘솔</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <h2>충만이 대화 백업 콘솔</h2>
-  <textarea id="sessionInput" placeholder="여기에 대화 붙여넣기"></textarea><br>
+
+  <input type="file" id="fileInput" accept=".txt" multiple />
+  <p>※ .txt 파일 최대 10개까지 선택 가능</p>
+
+  <textarea id="sessionInput" placeholder="여기에 대화 붙여넣기 또는 파일 선택"></textarea><br>
+
   <button onclick="uploadSession()">대화 업로드</button>
   <div id="result"></div>
+
   <script src="script.js"></script>
 </body>
 </html>
