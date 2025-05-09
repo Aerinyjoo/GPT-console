@@ -40,7 +40,7 @@ async function saveToSupabase(table, session, result, session_index = null, sess
   }
 }
 
-// ✅ 사용자와 GPT 구분 없이 전체 세션만 백업
+// ✅ 전체 세션 백업만 수행
 app.post('/session', async (req, res) => {
   const { session, session_index, session_id } = req.body;
   try {
@@ -52,20 +52,22 @@ app.post('/session', async (req, res) => {
   }
 });
 
-// 📦 기억 회상용 라우트 최소 구성
-app.get('/memories/recent', async (req, res) => {
-  const result = await fetch(`${SUPABASE_URL}/rest/v1/backups?order=id.desc&limit=100`, { headers: HEADERS });
-  res.json(await result.json());
-});
-
+// ✅ 최신 세션 (session_index 기준 정렬)
 app.get('/memories/latest', async (req, res) => {
-  const result = await fetch(`${SUPABASE_URL}/rest/v1/backups?order=id.desc&limit=1`, { headers: HEADERS });
+  const result = await fetch(
+    `${SUPABASE_URL}/rest/v1/backups?order=session_index.desc&limit=1`,
+    { headers: HEADERS }
+  );
   res.json(await result.json());
 });
 
+// ✅ 지정 세션 ID로 조회
 app.get('/memories/id/:id', async (req, res) => {
   const { id } = req.params;
-  const result = await fetch(`${SUPABASE_URL}/rest/v1/backups?session_id=eq.${id}`, { headers: HEADERS });
+  const result = await fetch(
+    `${SUPABASE_URL}/rest/v1/backups?session_id=eq.${id}`,
+    { headers: HEADERS }
+  );
   res.json(await result.json());
 });
 
